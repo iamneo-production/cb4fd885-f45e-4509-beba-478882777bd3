@@ -1,12 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { ToastContainer } from "react-toastify";
 import AppHeader from "./components/AppHeader";
-import Customer from "./components/Customer";
+import OrderHistory from "./components/OrderHistory";
+import "./App.css";
+import Recharge from "./components/Recharge";
 
 function App() {
   return (
@@ -18,7 +18,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/customer" element={<Customer />}></Route>
+          <Route path="/recharge" element={<Recharge />}></Route>
+          <Route path="/order-history" element={<OrderHistory />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

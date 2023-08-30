@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const Customer = () => {
+const OrderHistory = () => {
   const [custlist, setCustomerList] = useState([]);
   const [haveedit, editchange] = useState(false);
   const [haveview, viewchange] = useState(false);
@@ -129,4 +129,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default OrderHistory;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -9,10 +10,15 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const Home = () => {
-  const usenavigate = useNavigate();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [recommendedPlans, setRecommendedPlans] = useState([]);
   const [topTrendingPlans, setTopTrendingPlans] = useState([]);
+  const [modalData, setModalData] = useState({});
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   useEffect(() => {
     loadPlans();
@@ -29,13 +35,13 @@ const Home = () => {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
           setIsLoading(false);
           setRecommendedPlans(res?.recommended);
           setTopTrendingPlans(res?.topTrending);
         });
-    }, 3000);
+    }, 1000);
   };
+
   if (isLoading)
     return (
       <div
@@ -50,6 +56,15 @@ const Home = () => {
       </div>
     );
 
+  const showMoreDetails = (data) => {
+    setModalData(data);
+  };
+  const handleRecharge = (rechargeData) => {
+    // TODO: handle recharge
+    handleClose();
+    navigate("/recharge");
+  };
+
   return (
     <div>
       <Accordion defaultActiveKey="0">
@@ -59,13 +74,13 @@ const Home = () => {
             <Container>
               <Row>
                 {recommendedPlans.map((plan) => (
-                  <Col>
+                  <Col xs={6} md={4}>
                     <Card
                       border="dark"
                       style={{ width: "18rem" }}
                       key={plan.id}
                     >
-                      <Card.Header>Featured</Card.Header>
+                      <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
                           {plan.price}
@@ -76,8 +91,21 @@ const Home = () => {
                         <Card.Text>
                           <strong>Data:</strong> {plan.data}
                         </Card.Text>
-                        <Button variant="primary">Recharge</Button>
-                        <Button onClick={console.log("clicked")} variant="link">
+                        <Button
+                          variant="primary"
+                          onClick={(e) => {
+                            handleRecharge(plan);
+                          }}
+                        >
+                          Recharge
+                        </Button>
+                        <Button
+                          onClick={(e) => {
+                            showMoreDetails(plan);
+                            handleShow();
+                          }}
+                          variant="link"
+                        >
                           More details
                         </Button>
                       </Card.Body>
@@ -100,7 +128,7 @@ const Home = () => {
                       style={{ width: "18rem" }}
                       key={plan.id}
                     >
-                      <Card.Header>Featured</Card.Header>
+                      <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
                           {plan.price}
@@ -111,8 +139,21 @@ const Home = () => {
                         <Card.Text>
                           <strong>Data:</strong> {plan.data}
                         </Card.Text>
-                        <Button variant="primary">Recharge</Button>
-                        <Button onClick={console.log("clicked")} variant="link">
+                        <Button
+                          variant="primary"
+                          onClick={(e) => {
+                            handleRecharge(plan);
+                          }}
+                        >
+                          Recharge
+                        </Button>
+                        <Button
+                          onClick={(e) => {
+                            showMoreDetails(plan);
+                            handleShow();
+                          }}
+                          variant="link"
+                        >
                           More details
                         </Button>
                       </Card.Body>
@@ -124,6 +165,65 @@ const Home = () => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
+            <Row>
+              <Col>
+                <Card
+                  border="dark"
+                  style={{ width: "28rem" }}
+                  key={modalData.id}
+                >
+                  <Card.Header>{modalData.header}</Card.Header>
+                  <Card.Body>
+                    <Card.Title className="text-primary">
+                      {modalData.price}
+                    </Card.Title>
+                    <Card.Text>
+                      <strong>Validty:</strong> {modalData.validity}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Data:</strong> {modalData.data}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Texts:</strong> {modalData.texts}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Local Minutes:</strong> {modalData.localMins}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>International Minutes:</strong>{" "}
+                      {modalData.internationalMins}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              handleRecharge(modalData);
+            }}
+          >
+            Recharge
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

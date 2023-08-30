@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const AppHeader = () => {
   const [displayUsername, displayUsernameUpdate] = useState("");
   const [showMenu, showMenuUpdate] = useState(false);
-  const usenavigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     if (location.pathname === "/login" || location.pathname === "/register") {
@@ -13,7 +13,7 @@ const AppHeader = () => {
       showMenuUpdate(true);
       let username = sessionStorage.getItem("username");
       if (username === "" || username === null) {
-        usenavigate("/login");
+        navigate("/login");
       } else {
         displayUsernameUpdate(username);
       }
@@ -24,7 +24,7 @@ const AppHeader = () => {
       {showMenu && (
         <div className="header">
           <Link to={"/"}>Home</Link>
-          <Link to={"/customer"}>Customer</Link>
+          <Link to={"/order-history"}>Order History</Link>
           <span style={{ marginLeft: "70%" }}>
             Welcome <b>{displayUsername}</b>
           </span>

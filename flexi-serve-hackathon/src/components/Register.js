@@ -48,9 +48,18 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let regobj = { id, name, password, email, phone, country, address, gender };
+    let regobj = {
+      id,
+      name,
+      password,
+      email,
+      phone,
+      country,
+      address,
+      gender,
+      orders: [],
+    };
     if (isValidate()) {
-      //console.log(regobj);
       fetch("http://localhost:8080/user", {
         method: "POST",
         headers: { "content-type": "application/json" },
