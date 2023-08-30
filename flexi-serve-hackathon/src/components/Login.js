@@ -15,14 +15,11 @@ const Login = () => {
   const ProceedLogin = (e) => {
     e.preventDefault();
     if (validate()) {
-      ///implentation
-      // console.log('proceed');
       fetch("http://localhost:8080/user/" + username)
         .then((res) => {
           return res.json();
         })
         .then((resp) => {
-          //console.log(resp)
           if (Object.keys(resp).length === 0) {
             toast.error("Please Enter valid username");
           } else {
