@@ -1,53 +1,53 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Register = () => {
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("india");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("male");
+  const [id, setId] = useState('')
+  const [name, setName] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [country, setCountry] = useState('india')
+  const [address, setAddress] = useState('')
+  const [gender, setGender] = useState('male')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const isValidate = () => {
-    let isProceed = true;
-    let errorMessage = "Please enter the value in ";
-    if (id === null || id === "") {
-      isProceed = false;
-      errorMessage += " Username";
+    let isProceed = true
+    let errorMessage = 'Please enter the value in '
+    if (id === null || id === '') {
+      isProceed = false
+      errorMessage += ' Username'
     }
-    if (name === null || name === "") {
-      isProceed = false;
-      errorMessage += " Fullname";
+    if (name === null || name === '') {
+      isProceed = false
+      errorMessage += ' Fullname'
     }
-    if (password === null || password === "") {
-      isProceed = false;
-      errorMessage += " Password";
+    if (password === null || password === '') {
+      isProceed = false
+      errorMessage += ' Password'
     }
-    if (email === null || email === "") {
-      isProceed = false;
-      errorMessage += " Email";
+    if (email === null || email === '') {
+      isProceed = false
+      errorMessage += ' Email'
     }
 
     if (!isProceed) {
-      toast.warning(errorMessage);
+      toast.warning(errorMessage)
     } else if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-      isProceed = true;
+      isProceed = true
     } else {
-      isProceed = false;
-      toast.warning("Please enter the valid email");
+      isProceed = false
+      toast.warning('Please enter the valid email')
     }
 
-    return isProceed;
-  };
+    return isProceed
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     let regobj = {
       id,
       name,
@@ -58,22 +58,22 @@ const Register = () => {
       address,
       gender,
       orders: [],
-    };
+    }
     if (isValidate()) {
-      fetch("http://localhost:8080/user", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
+      fetch('http://localhost:8080/user', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify(regobj),
       })
         .then((res) => {
-          toast.success("Registered successfully.");
-          navigate("/login");
+          toast.success('Registered successfully.')
+          navigate('/login')
         })
         .catch((err) => {
-          toast.error("Registration failed :" + err.message);
-        });
+          toast.error('Registration failed :' + err.message)
+        })
     }
-  };
+  }
   return (
     <div>
       <div className="offset-lg-3 col-lg-6">
@@ -177,16 +177,16 @@ const Register = () => {
                     <br></br>
                     <input
                       type="radio"
-                      checked={gender === "male"}
+                      checked={gender === 'male'}
                       onChange={(e) => setGender(e.target.value)}
                       name="gender"
                       value="male"
                       className="app-check"
                     ></input>
-                    <label>Male</label>{" "}
+                    <label>Male</label>{' '}
                     <input
                       type="radio"
-                      checked={gender === "female"}
+                      checked={gender === 'female'}
                       onChange={(e) => setGender(e.target.value)}
                       name="gender"
                       value="female"
@@ -200,9 +200,9 @@ const Register = () => {
             <div className="card-footer">
               <button type="submit" className="btn btn-primary">
                 Register
-              </button>{" "}
-              {""}
-              <Link to={"/login"} className="btn btn-danger">
+              </button>{' '}
+              {''}
+              <Link to={'/login'} className="btn btn-danger">
                 Close
               </Link>
             </div>
@@ -210,7 +210,7 @@ const Register = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

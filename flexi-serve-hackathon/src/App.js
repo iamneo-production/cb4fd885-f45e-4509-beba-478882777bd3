@@ -1,12 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import AppHeader from "./components/AppHeader";
-import OrderHistory from "./components/OrderHistory";
-import "./App.css";
-import Recharge from "./components/Recharge";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import Home from './components/Home'
+import Login from './components/Login'
+import Register from './components/Register'
+import AppHeader from './components/AppHeader'
+import OrderHistory from './components/OrderHistory'
+import './App.css'
+import Recharge from './components/Recharge'
+import Profile from './components/Profile'
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/recharge" element={<Recharge />}></Route>
           <Route path="/order-history" element={<OrderHistory />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
