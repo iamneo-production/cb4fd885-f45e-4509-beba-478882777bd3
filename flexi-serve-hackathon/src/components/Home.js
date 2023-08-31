@@ -138,12 +138,8 @@ const Home = () => {
             <Container>
               <Row>
                 {recommendedPlans.map((plan) => (
-                  <Col xs={6} md={4}>
-                    <Card
-                      border="dark"
-                      style={{ width: "18rem" }}
-                      key={plan.id}
-                    >
+                  <Col xs={6} md={4} key={plan.id}>
+                    <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -186,11 +182,10 @@ const Home = () => {
             <Container>
               <Row>
                 {topTrendingPlans.map((plan) => (
-                  <Col>
+                  <Col key={plan.id}>
                     <Card
                       border="dark"
                       style={{ width: "18rem" }}
-                      key={plan.id}
                     >
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
