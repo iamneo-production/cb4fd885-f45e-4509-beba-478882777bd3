@@ -9,7 +9,15 @@
       "country": "uk",
       "address": "",
       "role": "admin",
-      "gender": "male"
+      "gender": "male",
+      "orders": [
+        {
+          "orderId": "1",
+          "date": "31-Aug-2023",
+          "header": "Plan A",
+          "price": "£5.00"
+        }
+      ]
     },
     {
       "id": "testuser",

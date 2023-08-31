@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const OrderHistory = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    fetchOrderHistory();
-  }, []);
+    fetchOrderHistory()
+  }, [])
 
   const fetchOrderHistory = () => {
-    fetch("http://localhost:8080/user/" + sessionStorage.getItem("username"))
+    fetch('http://localhost:8080/user/' + sessionStorage.getItem('username'))
       .then((res) => {
         if (!res.ok) {
-          return {};
+          return {}
         }
-        return res.json();
+        return res.json()
       })
       .then((res) => {
-        setOrders(res?.orders);
-      });
-  };
+        setOrders(res?.orders)
+      })
+  }
 
   return (
     <div className="container">
@@ -38,7 +38,7 @@ const OrderHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 ? (
+              {orders?.length > 0 ? (
                 orders.map((order) => (
                   <tr key={order.orderId}>
                     <td>{order.orderId}</td>
@@ -46,8 +46,8 @@ const OrderHistory = () => {
                     <td>{order.header}</td>
                     <td>{order.price}</td>
                     <td>
-                      {order.validity} validity with {order.data},{" "}
-                      {order.localMins} local mins, {order.texts} texts &{" "}
+                      {order.validity} validity with {order.data},{' '}
+                      {order.localMins} local mins, {order.texts} texts &{' '}
                       {order.internationalMins} intl mins
                     </td>
                   </tr>
@@ -64,7 +64,7 @@ const OrderHistory = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrderHistory;
+export default OrderHistory

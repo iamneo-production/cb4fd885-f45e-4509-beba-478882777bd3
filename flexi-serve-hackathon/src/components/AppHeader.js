@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
 
 const AppHeader = () => {
-  const [displayUsername, displayUsernameUpdate] = useState("");
-  const [showMenu, showMenuUpdate] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [displayUsername, displayUsernameUpdate] = useState('')
+  const [showMenu, showMenuUpdate] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
   useEffect(() => {
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      showMenuUpdate(false);
+    if (location.pathname === '/login' || location.pathname === '/register') {
+      showMenuUpdate(false)
     } else {
-      showMenuUpdate(true);
-      let username = sessionStorage.getItem("username");
-      if (username === "" || username === null) {
-        navigate("/login");
+      showMenuUpdate(true)
+      let username = sessionStorage.getItem('username')
+      if (username === '' || username === null) {
+        navigate('/login')
       } else {
-        displayUsernameUpdate(username);
+        displayUsernameUpdate(username)
       }
     }
-  }, [location]);
+  }, [location])
   return (
     <div>
       {showMenu && (
@@ -34,7 +34,8 @@ const AppHeader = () => {
             </Nav>
             <Nav>
               <Navbar.Text>
-                Signed in as: <a href="#">{displayUsername}</a>
+                Signed in as:{' '}
+                <Nav.Link href="/profile">{displayUsername}</Nav.Link>
               </Navbar.Text>
               <Nav.Link href="/login" className="justify-content-end">
                 Logout
@@ -44,7 +45,7 @@ const AppHeader = () => {
         </Navbar>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AppHeader;
+export default AppHeader

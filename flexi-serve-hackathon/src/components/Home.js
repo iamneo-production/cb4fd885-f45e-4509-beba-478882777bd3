@@ -1,71 +1,71 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Spinner from "react-bootstrap/Spinner";
-import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import Accordion from 'react-bootstrap/Accordion'
+import Spinner from 'react-bootstrap/Spinner'
+import Modal from 'react-bootstrap/Modal'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [recommendedPlans, setRecommendedPlans] = useState([]);
-  const [topTrendingPlans, setTopTrendingPlans] = useState([]);
-  const [modalData, setModalData] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
+  const [recommendedPlans, setRecommendedPlans] = useState([])
+  const [topTrendingPlans, setTopTrendingPlans] = useState([])
+  const [modalData, setModalData] = useState({})
+  const [showModal, setShowModal] = useState(false)
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false)
+  const handleShow = () => setShowModal(true)
 
   useEffect(() => {
-    loadPlans();
-  }, []);
+    loadPlans()
+  }, [])
 
   const loadPlans = () => {
-    setIsLoading(true);
+    setIsLoading(true)
     setTimeout(() => {
-      fetch("http://localhost:8080/plans")
+      fetch('http://localhost:8080/plans')
         .then((res) => {
           if (!res.ok) {
-            return {};
+            return {}
           }
-          return res.json();
+          return res.json()
         })
         .then((res) => {
-          setIsLoading(false);
-          setRecommendedPlans(res?.recommended);
-          setTopTrendingPlans(res?.topTrending);
-        });
-    }, 1000);
-  };
+          setIsLoading(false)
+          setRecommendedPlans(res?.recommended)
+          setTopTrendingPlans(res?.topTrending)
+        })
+    }, 1000)
+  }
 
   if (isLoading)
     return (
       <div
         style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
         }}
       >
         <Spinner animation="border" variant="primary" />
       </div>
-    );
+    )
 
   const showMoreDetails = (data) => {
-    setModalData(data);
-  };
+    setModalData(data)
+  }
   const handleRecharge = (rechargeData) => {
-    handleClose();
-    navigate("/recharge");
-  };
+    handleClose()
+    navigate('/recharge')
+  }
 
   return (
-    <div style={{ width: "96%", margin: "auto" }}>
+    <div style={{ width: '96%', margin: 'auto' }}>
       <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
           <Accordion.Header>{`Recommended (${recommendedPlans.length})`}</Accordion.Header>
@@ -76,7 +76,7 @@ const Home = () => {
                   <Col xs={6} md={4}>
                     <Card
                       border="dark"
-                      style={{ width: "18rem" }}
+                      style={{ width: '18rem' }}
                       key={plan.id}
                     >
                       <Card.Header>{plan.header}</Card.Header>
@@ -93,15 +93,15 @@ const Home = () => {
                         <Button
                           variant="primary"
                           onClick={(e) => {
-                            handleRecharge(plan);
+                            handleRecharge(plan)
                           }}
                         >
                           Recharge
                         </Button>
                         <Button
                           onClick={(e) => {
-                            showMoreDetails(plan);
-                            handleShow();
+                            showMoreDetails(plan)
+                            handleShow()
                           }}
                           variant="link"
                         >
@@ -124,7 +124,7 @@ const Home = () => {
                   <Col>
                     <Card
                       border="dark"
-                      style={{ width: "18rem" }}
+                      style={{ width: '18rem' }}
                       key={plan.id}
                     >
                       <Card.Header>{plan.header}</Card.Header>
@@ -141,15 +141,15 @@ const Home = () => {
                         <Button
                           variant="primary"
                           onClick={(e) => {
-                            handleRecharge(plan);
+                            handleRecharge(plan)
                           }}
                         >
                           Recharge
                         </Button>
                         <Button
                           onClick={(e) => {
-                            showMoreDetails(plan);
-                            handleShow();
+                            showMoreDetails(plan)
+                            handleShow()
                           }}
                           variant="link"
                         >
@@ -187,7 +187,7 @@ const Home = () => {
               <Col>
                 <Card
                   border="dark"
-                  style={{ width: "28rem" }}
+                  style={{ width: '28rem' }}
                   key={modalData.id}
                 >
                   <Card.Header>{modalData.header}</Card.Header>
@@ -208,7 +208,7 @@ const Home = () => {
                       <strong>Local Minutes:</strong> {modalData.localMins}
                     </Card.Text>
                     <Card.Text>
-                      <strong>International Minutes:</strong>{" "}
+                      <strong>International Minutes:</strong>{' '}
                       {modalData.internationalMins}
                     </Card.Text>
                   </Card.Body>
@@ -224,7 +224,7 @@ const Home = () => {
           <Button
             variant="primary"
             onClick={(e) => {
-              handleRecharge(modalData);
+              handleRecharge(modalData)
             }}
           >
             Recharge
@@ -232,7 +232,7 @@ const Home = () => {
         </Modal.Footer>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

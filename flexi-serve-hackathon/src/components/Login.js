@@ -1,57 +1,57 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login = () => {
-  const [username, usernameupdate] = useState("");
-  const [password, passwordupdate] = useState("");
+  const [username, usernameupdate] = useState('')
+  const [password, passwordupdate] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    sessionStorage.clear();
-  }, []);
+    sessionStorage.clear()
+  }, [])
 
   const login = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (validate()) {
-      fetch("http://localhost:8080/user/" + username)
+      fetch('http://localhost:8080/user/' + username)
         .then((res) => {
-          return res.json();
+          return res.json()
         })
         .then((resp) => {
           if (Object.keys(resp).length === 0) {
-            toast.error("Please Enter valid username");
+            toast.error('Please Enter valid username')
           } else if (resp.password === password) {
-            toast.success("Success");
-            sessionStorage.setItem("username", username);
-            sessionStorage.setItem("userrole", resp.role);
-            navigate("/");
+            toast.success('Success')
+            sessionStorage.setItem('username', username)
+            sessionStorage.setItem('userrole', resp.role)
+            navigate('/')
           } else {
-            toast.error("Please Enter valid credentials");
+            toast.error('Please Enter valid credentials')
           }
         })
         .catch((err) => {
-          toast.error("Login Failed due to :" + err.message);
-        });
+          toast.error('Login Failed due to :' + err.message)
+        })
     }
-  };
+  }
 
   const validate = () => {
-    let result = true;
-    if (username === "" || username === null) {
-      result = false;
-      toast.warning("Please Enter Username");
+    let result = true
+    if (username === '' || username === null) {
+      result = false
+      toast.warning('Please Enter Username')
     }
-    if (password === "" || password === null) {
-      result = false;
-      toast.warning("Please Enter Password");
+    if (password === '' || password === null) {
+      result = false
+      toast.warning('Please Enter Password')
     }
-    return result;
-  };
+    return result
+  }
   return (
     <div className="row">
-      <div className="offset-lg-3 col-lg-6" style={{ marginTop: "100px" }}>
+      <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
         <form onSubmit={login} className="container">
           <div className="card">
             <div className="card-header">
@@ -84,7 +84,7 @@ const Login = () => {
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
-              <Link className="btn btn-link text-bg-light" to={"/register"}>
+              <Link className="btn btn-link text-bg-light" to={'/register'}>
                 New User
               </Link>
             </div>
@@ -92,7 +92,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
