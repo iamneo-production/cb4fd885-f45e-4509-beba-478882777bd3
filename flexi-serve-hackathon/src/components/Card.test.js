@@ -8,7 +8,7 @@ describe('Card Component', () => {
       key2: 'value2',
     }
 
-    const { getByText, getByLabelText } = render(
+    const { getByText } = render(
       <Card title="Test Title" items={mockItems} />
     )
 

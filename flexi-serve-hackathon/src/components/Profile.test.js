@@ -4,7 +4,6 @@ import Profile from './Profile'
 const mockData = {
   id: '3',
   name: 'Saravanan Kandasamy',
-  password: 'test123',
   email: 'emailtoksaravanan@gmail.com',
   phone: '07721544510',
   country: 'uk',
