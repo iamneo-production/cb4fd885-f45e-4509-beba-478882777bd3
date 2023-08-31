@@ -12,26 +12,26 @@
       "gender": "male",
       "orders": [
         {
-          "orderId": 1,
-          "header": "Featured",
-          "date": "28/08/2023",
-          "price": "$15",
-          "validity": "30 days",
-          "data": "1.5 GB/day",
+          "id": "5",
+          "header": "Trending",
+          "price": 10,
+          "validity": 30,
+          "data": 15,
           "localMins": "Unlimited",
           "texts": "Unlimited",
-          "internationalMins": "5000"
+          "internationalMins": 100,
+          "date": "31/08/2023"
         },
         {
-          "orderId": 2,
-          "header": "Trending",
-          "date": "30/09/2023",
-          "price": "$10",
-          "validity": "30 days",
-          "data": "15 GB*",
+          "id": "3",
+          "header": "Featured",
+          "price": 25,
+          "validity": 30,
+          "data": 2.5,
           "localMins": "Unlimited",
           "texts": "Unlimited",
-          "internationalMins": "100"
+          "internationalMins": 10000,
+          "date": "31/08/2023"
         }
       ]
     },
@@ -47,26 +47,37 @@
       "gender": "male",
       "orders": [
         {
-          "orderId": 1,
+          "id": "1",
           "header": "Featured",
-          "date": "28/08/2023",
-          "price": "$15",
-          "validity": "30 days",
-          "data": "1.5 GB/day",
+          "price": 15,
+          "validity": 30,
+          "data": 1.5,
           "localMins": "Unlimited",
           "texts": "Unlimited",
-          "internationalMins": "5000"
+          "internationalMins": 5000,
+          "date": "31/08/2023"
         },
         {
-          "orderId": 2,
-          "header": "Trending",
-          "date": "31/09/2023",
-          "price": "$10",
-          "validity": "30 days",
-          "data": "15 GB*",
-          "localMins": "Unlimited",
-          "texts": "Unlimited",
-          "internationalMins": "100"
+          "id": "20",
+          "header": "Custom",
+          "date": "31/08/2023",
+          "price": 40,
+          "validity": 60,
+          "data": 15,
+          "localMins": 4000,
+          "texts": 5000,
+          "internationalMins": 6000
+        },
+        {
+          "id": "68",
+          "header": "Custom",
+          "date": "31/08/2023",
+          "price": 40,
+          "validity": 60,
+          "data": 5,
+          "localMins": 1000,
+          "texts": 1000,
+          "internationalMins": 1000
         }
       ]
     },
@@ -79,7 +90,30 @@
       "country": "india",
       "address": "Test",
       "gender": "male",
-      "orders": []
+      "orders": [
+        {
+          "id": "4",
+          "header": "Independence Day Offer",
+          "price": "5",
+          "validity": "30 days",
+          "data": "5 GB*",
+          "localMins": "1000",
+          "texts": "1000",
+          "internationalMins": "100",
+          "date": "31/08/2023"
+        },
+        {
+          "id": "3",
+          "header": "Custom",
+          "date": "31/08/2023",
+          "price": 40,
+          "validity": 30,
+          "data": 20,
+          "localMins": 6000,
+          "texts": 5000,
+          "internationalMins": 7000
+        }
+      ]
     }
   ],
   "roleaccess": [
@@ -144,64 +178,64 @@
       {
         "id": "1",
         "header": "Featured",
-        "price": "15",
-        "validity": "30 days",
-        "data": "1.5 GB/day",
+        "price": 15,
+        "validity": 30,
+        "data": 1.5,
         "localMins": "Unlimited",
         "texts": "Unlimited",
-        "internationalMins": "5000"
+        "internationalMins": 5000
       },
       {
         "id": "2",
         "header": "Popular",
-        "price": "20",
-        "validity": "30 days",
-        "data": "2 GB/day",
+        "price": 20,
+        "validity": 30,
+        "data": 2,
         "localMins": "Unlimited",
         "texts": "Unlimited",
-        "internationalMins": "7500"
+        "internationalMins": 7500
       },
       {
         "id": "3",
         "header": "Featured",
-        "price": "25",
-        "validity": "30 days",
-        "data": "2.5 GB/day",
+        "price": 25,
+        "validity": 30,
+        "data": 2.5,
         "localMins": "Unlimited",
         "texts": "Unlimited",
-        "internationalMins": "10000"
+        "internationalMins": 10000
       }
     ],
     "topTrending": [
       {
         "id": "4",
         "header": "Independence Day Offer",
-        "price": "5",
-        "validity": "30 days",
-        "data": "5 GB*",
-        "localMins": "1000",
-        "texts": "1000",
-        "internationalMins": "100"
+        "price": 5,
+        "validity": 30,
+        "data": 5,
+        "localMins": 1000,
+        "texts": 1000,
+        "internationalMins": 100
       },
       {
         "id": "5",
         "header": "Trending",
-        "price": "10",
-        "validity": "30 days",
-        "data": "15 GB*",
+        "price": 10,
+        "validity": 30,
+        "data": 15,
         "localMins": "Unlimited",
         "texts": "Unlimited",
-        "internationalMins": "100"
+        "internationalMins": 100
       },
       {
         "id": "6",
         "header": "Best Selling",
-        "price": "30",
-        "validity": "30 days",
+        "price": 30,
+        "validity": 30,
         "data": "Unlimited",
         "localMins": "Unlimited",
         "texts": "Unlimited",
-        "internationalMins": "500"
+        "internationalMins": 500
       }
     ]
   }

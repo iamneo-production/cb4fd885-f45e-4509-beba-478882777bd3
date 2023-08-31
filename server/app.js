@@ -11,7 +11,6 @@ app.use(cors());
 
 app.post("/api/make-payment", async (req, res) => {
   const { product } = req.body;
-  console.log(product);
   const lineItems = [
     {
       price_data: {

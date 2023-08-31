@@ -40,7 +40,6 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    console.log(customIntlMins)
     if (customData === 30 || customValidity === 90 || customIntlMins > 7000) {
       setCustomPrice(50)
     } else if (
@@ -96,16 +95,27 @@ const Home = () => {
   const showMoreDetails = (data) => {
     setModalData(data)
   }
-  const handleRecharge = (rechargeData) => {
+
+  const today = new Date()
+  const yyyy = today.getFullYear()
+  let mm = today.getMonth() + 1
+  let dd = today.getDate()
+  if (dd < 10) dd = '0' + dd
+  if (mm < 10) mm = '0' + mm
+  const formattedDate = dd + '/' + mm + '/' + yyyy
+
+  const handleRecharge = (plan) => {
     handleClose()
+    const rechargeData = { ...plan, date: formattedDate }
     sessionStorage.setItem('order', JSON.stringify(rechargeData))
     navigate('/recharge')
   }
 
   const handleCustomRecharge = () => {
     const customRechargeData = {
+      id: Math.floor(Math.random() * 100).toString(),
       header: 'Custom',
-      date: '28/08/2023',
+      date: formattedDate,
       price: customPrice,
       validity: customValidity,
       data: customData,
@@ -134,10 +144,10 @@ const Home = () => {
                           ${plan.price}
                         </Card.Title>
                         <Card.Text>
-                          <strong>Validty:</strong> {plan.validity}
+                          <strong>Validty:</strong> {plan.validity} days
                         </Card.Text>
                         <Card.Text>
-                          <strong>Data:</strong> {plan.data}
+                          <strong>Data:</strong> {plan.data} GB/day
                         </Card.Text>
                         <Button
                           variant="primary"
@@ -178,10 +188,10 @@ const Home = () => {
                           ${plan.price}
                         </Card.Title>
                         <Card.Text>
-                          <strong>Validty:</strong> {plan.validity}
+                          <strong>Validty:</strong> {plan.validity} days
                         </Card.Text>
                         <Card.Text>
-                          <strong>Data:</strong> {plan.data}
+                          <strong>Data:</strong> {plan.data} GB/day
                         </Card.Text>
                         <Button
                           variant="primary"
@@ -211,7 +221,7 @@ const Home = () => {
         <Accordion.Item eventKey="3">
           <Accordion.Header>Make your own plan</Accordion.Header>
           <Accordion.Body>
-            <Container>
+            <Container style={{ width: '50rem' }}>
               <Row>
                 <Col>Data:</Col>
                 <Col>
@@ -355,13 +365,13 @@ const Home = () => {
                   <Card.Header>{modalData.header}</Card.Header>
                   <Card.Body>
                     <Card.Title className="text-primary">
-                      {modalData.price}
+                      ${modalData.price}
                     </Card.Title>
                     <Card.Text>
-                      <strong>Validty:</strong> {modalData.validity}
+                      <strong>Validty:</strong> {modalData.validity} days
                     </Card.Text>
                     <Card.Text>
-                      <strong>Data:</strong> {modalData.data}
+                      <strong>Data:</strong> {modalData.data} GB/day
                     </Card.Text>
                     <Card.Text>
                       <strong>Texts:</strong> {modalData.texts}
