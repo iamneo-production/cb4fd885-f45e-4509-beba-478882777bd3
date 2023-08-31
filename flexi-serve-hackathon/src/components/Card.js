@@ -8,19 +8,6 @@ const CardHeader = ({ title }) => {
       </div>
     )
   },
-  CardFooter = () => {
-    return (
-      <div className="card-footer">
-        <button type="submit" className="btn btn-primary">
-          Register
-        </button>{' '}
-        {''}
-        <Link to={'/login'} className="btn btn-danger">
-          Close
-        </Link>
-      </div>
-    )
-  },
   CardBody = ({ items }) => (
     <div className="card-body">
       <div className="row">
@@ -45,12 +32,11 @@ const CardHeader = ({ title }) => {
     </div>
   ),
   Card = (props) => {
-    const { title, items = {}, footer } = props
+    const { title, items = {} } = props
     return (
       <div className="card">
         <CardHeader title={title} />
         <CardBody items={items} />
-        {footer && <CardFooter />}
       </div>
     )
   }
