@@ -40,15 +40,15 @@ const OrderHistory = () => {
             <tbody>
               {orders?.length > 0 ? (
                 orders.map((order) => (
-                  <tr key={order.orderId}>
-                    <td>{order.orderId}</td>
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
                     <td>{order.date}</td>
                     <td>{order.header}</td>
                     <td>{order.price}</td>
                     <td>
-                      {order.validity} validity with {order.data},{' '}
-                      {order.localMins} local mins, {order.texts} texts &{' '}
-                      {order.internationalMins} intl mins
+                      {order.validity} days validity with {order.data}GB Data,{' '}
+                      {order.localMins} Local mins, {order.texts} Texts &{' '}
+                      {order.internationalMins} Intl mins
                     </td>
                   </tr>
                 ))

@@ -1,11 +1,9 @@
 import React from 'react'
 import Button from 'react-bootstrap/esm/Button'
-// import { useNavigate } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js'
 
 const Recharge = () => {
   let order = JSON.parse(sessionStorage.getItem('order'))
-  // const navigate = useNavigate();
   const makePayment = async () => {
     const stripe = await loadStripe(
       'pk_test_51JumLXBPQeAuTgL1NI4yDdkimtENKscd8FBy4LRA4ahqXVEbBRt4VgcobThjBxmwywgTwX1t2PtodBZYjYYp5gbY00cI3NjBn6'
@@ -24,11 +22,37 @@ const Recharge = () => {
     })
 
     const session = await response.json()
-
+    if (response.status === 200) {
+      const username = sessionStorage.getItem('username')
+      fetch('http://localhost:8080/user/' + username)
+        .then((res) => {
+          return res.json()
+        })
+        .then((resp) => {
+          const { orders } = resp
+          const ordersObject =
+            orders.length === 0
+              ? { ...resp, orders: [order] }
+              : { ...resp, orders: [...orders, order] }
+          fetch('http://localhost:8080/user/' + username, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(ordersObject),
+          })
+            .then((res) => {
+              console.log('Order updated successfully', res)
+            })
+            .catch((err) => {
+              console.log('Order update failed :' + err.message)
+            })
+        })
+        .catch((err) => {
+          console.log('Something went wrong :' + err.message)
+        })
+    }
     const result = stripe.redirectToCheckout({
       sessionId: session.id,
     })
-
     if (result.error) {
       console.log(result.error)
     }
@@ -41,30 +65,28 @@ const Recharge = () => {
         </div>
         <div className="card-body">
           <table className="table">
-            <tr>
-              <th>Order ID</th>
-              <td>{order.orderId}</td>
-            </tr>
-            <tr>
-              <th>Date of order</th>
-              <td>{order.date}</td>
-            </tr>
-            <tr>
-              <th>Plan</th>
-              <td>{order.header}</td>
-            </tr>
-            <tr>
-              <th>Rate</th>
-              <td>{order.price}</td>
-            </tr>
-            <tr>
-              <th>Details</th>
-              <td>
-                {order.validity} validity with {order.data}, {order.localMins}{' '}
-                local mins, {order.texts} texts & {order.internationalMins} intl
-                mins
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Date of order</th>
+                <td>{order.date}</td>
+              </tr>
+              <tr>
+                <th>Plan</th>
+                <td>{order.header}</td>
+              </tr>
+              <tr>
+                <th>Rate</th>
+                <td>${order.price}</td>
+              </tr>
+              <tr>
+                <th>Details</th>
+                <td>
+                  {order.validity} days validity with {order.data}GB Data,{' '}
+                  {order.localMins} Local mins, {order.texts} Texts &{' '}
+                  {order.internationalMins} Intl mins
+                </td>
+              </tr>
+            </tbody>
           </table>
           <div className="d-flex justify-content-center">
             <Button variant="primary" onClick={makePayment}>

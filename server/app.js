@@ -11,7 +11,6 @@ app.use(cors());
 
 app.post("/api/make-payment", async (req, res) => {
   const { product } = req.body;
-  console.log(product);
   const lineItems = [
     {
       price_data: {
@@ -30,7 +29,7 @@ app.post("/api/make-payment", async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: "http://localhost:3000/",
+    success_url: "http://localhost:3000/order-history",
     cancel_url: "http://localhost:3000/",
   });
 
