@@ -33,9 +33,14 @@ const AppHeader = () => {
               <Nav.Link href="/order-history">Orders</Nav.Link>
             </Nav>
             <Nav>
-              <Navbar.Text>
+              <Navbar.Text className="d-flex">
                 Signed in as:{' '}
-                <Nav.Link href="/profile">{displayUsername}</Nav.Link>
+                <Nav.Link
+                  href="/profile"
+                  style={{ padding: 0, marginLeft: '5px' }}
+                >
+                  {displayUsername}
+                </Nav.Link>
               </Navbar.Text>
               <Nav.Link href="/login" className="justify-content-end">
                 Logout
