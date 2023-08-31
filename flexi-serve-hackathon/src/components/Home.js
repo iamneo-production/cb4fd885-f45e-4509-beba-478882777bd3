@@ -54,12 +54,6 @@ const Home = () => {
       customIntlMins === 9999
     ) {
       setCustomPrice(30);
-    } else if (
-      customData >= 10 &&
-      customData <= 15 &&
-      customIntlMins === 9999
-    ) {
-      setCustomPrice(30);
     } else if (customIntlMins >= 3000 && customIntlMins <= 5000) {
       setCustomPrice(20);
     } else {
@@ -143,7 +137,7 @@ const Home = () => {
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
-                          {plan.price}
+                          ${plan.price}
                         </Card.Title>
                         <Card.Text>
                           <strong>Validty:</strong> {plan.validity}
@@ -183,14 +177,11 @@ const Home = () => {
               <Row>
                 {topTrendingPlans.map((plan) => (
                   <Col key={plan.id}>
-                    <Card
-                      border="dark"
-                      style={{ width: "18rem" }}
-                    >
+                    <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
-                          {plan.price}
+                          ${plan.price}
                         </Card.Title>
                         <Card.Text>
                           <strong>Validty:</strong> {plan.validity}

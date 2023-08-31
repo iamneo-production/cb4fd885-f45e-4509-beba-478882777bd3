@@ -1,9 +1,38 @@
 import React from "react";
 import Button from "react-bootstrap/esm/Button";
+// import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Recharge = () => {
   let order = JSON.parse(sessionStorage.getItem("order"));
-  console.log(order);
+  // const navigate = useNavigate();
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51JumLXBPQeAuTgL1NI4yDdkimtENKscd8FBy4LRA4ahqXVEbBRt4VgcobThjBxmwywgTwX1t2PtodBZYjYYp5gbY00cI3NjBn6"
+    );
+
+    const body = {
+      product: order,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch("http://localhost:7000/api/make-payment", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
   return (
     <div className="container">
       <div className="card">
@@ -38,7 +67,9 @@ const Recharge = () => {
             </tr>
           </table>
           <div className="d-flex justify-content-center">
-            <Button variant="primary">Proceed to pay</Button>
+            <Button variant="primary" onClick={makePayment}>
+              Proceed to pay
+            </Button>
           </div>
         </div>
       </div>
