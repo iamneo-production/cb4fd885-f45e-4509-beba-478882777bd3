@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Spinner from "react-bootstrap/Spinner";
-import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Accordion from 'react-bootstrap/Accordion'
+import Spinner from 'react-bootstrap/Spinner'
+import Modal from 'react-bootstrap/Modal'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Box from '@mui/material/Box'
+import Slider from '@mui/material/Slider'
 import {
   dataIntervals,
   localIntlMinsIntervals,
   validityIntervals,
   priceIntervals,
-} from "../constants/SliderConstants";
+} from '../constants/SliderConstants'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -25,47 +25,41 @@ const Home = () => {
   const [modalData, setModalData] = useState({})
   const [showModal, setShowModal] = useState(false)
 
-  const [customData, setCustomData] = useState(5);
-  const [customLocalMins, setCustomLocalMins] = useState(1000);
-  const [customIntlMins, setCustomIntlMins] = useState(1000);
-  const [customTexts, setCustomTexts] = useState(1000);
-  const [customValidity, setCustomValidity] = useState(30);
-  const [customPrice, setCustomPrice] = useState(10);
+  const [customData, setCustomData] = useState(5)
+  const [customLocalMins, setCustomLocalMins] = useState(1000)
+  const [customIntlMins, setCustomIntlMins] = useState(1000)
+  const [customTexts, setCustomTexts] = useState(1000)
+  const [customValidity, setCustomValidity] = useState(30)
+  const [customPrice, setCustomPrice] = useState(10)
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false)
+  const handleShow = () => setShowModal(true)
 
   useEffect(() => {
     loadPlans()
   }, [])
 
   useEffect(() => {
-    console.log(customIntlMins);
+    console.log(customIntlMins)
     if (customData === 30 || customValidity === 90 || customIntlMins > 7000) {
-      setCustomPrice(50);
+      setCustomPrice(50)
     } else if (
       (customData >= 15 && customData <= 25) ||
       (customValidity >= 60 && customValidity <= 90)
     ) {
-      setCustomPrice(40);
+      setCustomPrice(40)
     } else if (
       customData >= 10 &&
       customData <= 15 &&
       customIntlMins === 9999
     ) {
-      setCustomPrice(30);
+      setCustomPrice(30)
     } else if (customIntlMins >= 3000 && customIntlMins <= 5000) {
-      setCustomPrice(20);
+      setCustomPrice(20)
     } else {
-      setCustomPrice(10);
+      setCustomPrice(10)
     }
-  }, [
-    customData,
-    customLocalMins,
-    customTexts,
-    customIntlMins,
-    customValidity,
-  ]);
+  }, [customData, customLocalMins, customTexts, customIntlMins, customValidity])
 
   const loadPlans = () => {
     setIsLoading(true)
@@ -103,25 +97,25 @@ const Home = () => {
     setModalData(data)
   }
   const handleRecharge = (rechargeData) => {
-    handleClose();
-    sessionStorage.setItem("order", JSON.stringify(rechargeData));
-    navigate("/recharge");
-  };
+    handleClose()
+    sessionStorage.setItem('order', JSON.stringify(rechargeData))
+    navigate('/recharge')
+  }
 
   const handleCustomRecharge = () => {
     const customRechargeData = {
-      header: "Custom",
-      date: "28/08/2023",
+      header: 'Custom',
+      date: '28/08/2023',
       price: customPrice,
       validity: customValidity,
       data: customData,
       localMins: customLocalMins,
       texts: customTexts,
       internationalMins: customIntlMins,
-    };
-    sessionStorage.setItem("order", JSON.stringify(customRechargeData));
-    navigate("/recharge");
-  };
+    }
+    sessionStorage.setItem('order', JSON.stringify(customRechargeData))
+    navigate('/recharge')
+  }
 
   return (
     <div style={{ width: '96%', margin: 'auto' }}>
@@ -133,7 +127,7 @@ const Home = () => {
               <Row>
                 {recommendedPlans.map((plan) => (
                   <Col xs={6} md={4} key={plan.id}>
-                    <Card border="dark" style={{ width: "18rem" }}>
+                    <Card border="dark" style={{ width: '18rem' }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -177,7 +171,7 @@ const Home = () => {
               <Row>
                 {topTrendingPlans.map((plan) => (
                   <Col key={plan.id}>
-                    <Card border="dark" style={{ width: "18rem" }}>
+                    <Card border="dark" style={{ width: '18rem' }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -329,9 +323,9 @@ const Home = () => {
                 <Button
                   variant="primary"
                   onClick={(e) => {
-                    handleCustomRecharge();
+                    handleCustomRecharge()
                   }}
-                  style={{ width: "10rem" }}
+                  style={{ width: '10rem' }}
                 >
                   Recharge
                 </Button>

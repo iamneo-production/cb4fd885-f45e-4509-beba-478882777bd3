@@ -24,17 +24,23 @@ const CardHeader = ({ title }) => {
   CardBody = ({ items }) => (
     <div className="card-body">
       <div className="row">
-        {values(mapObjIndexed(
-          (value, key) => (
-            <div className="col-lg-6" key={key}>
-              <div className="form-group">
-                <label>{key}</label>
-                <input value={value} disabled={true} className="form-control" />
+        {values(
+          mapObjIndexed(
+            (value, key) => (
+              <div className="col-lg-6" key={key}>
+                <div className="form-group">
+                  <label>{key}</label>
+                  <input
+                    value={value}
+                    disabled={true}
+                    className="form-control"
+                  />
+                </div>
               </div>
-            </div>
-          ),
-          items
-        ))}
+            ),
+            items
+          )
+        )}
       </div>
     </div>
   ),
