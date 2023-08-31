@@ -38,7 +38,7 @@ const OrderHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 ? (
+              {orders?.length > 0 ? (
                 orders.map((order) => (
                   <tr key={order.id}>
                     <td>{order.id}</td>
