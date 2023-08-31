@@ -40,7 +40,7 @@ const OrderHistory = () => {
             <tbody>
               {orders.length > 0 ? (
                 orders.map((order) => (
-                  <tr>
+                  <tr key={order.orderId}>
                     <td>{order.orderId}</td>
                     <td>{order.date}</td>
                     <td>{order.header}</td>
@@ -53,7 +53,11 @@ const OrderHistory = () => {
                   </tr>
                 ))
               ) : (
-                <tr>No orders found</tr>
+                <tr>
+                  <td colSpan={5} align="center">
+                    No orders found
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>

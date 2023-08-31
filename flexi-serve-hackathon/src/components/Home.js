@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
@@ -65,7 +65,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "96%", margin: "auto" }}>
       <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
           <Accordion.Header>{`Recommended (${recommendedPlans.length})`}</Accordion.Header>
@@ -73,8 +73,12 @@ const Home = () => {
             <Container>
               <Row>
                 {recommendedPlans.map((plan) => (
-                  <Col key={plan.id}>
-                    <Card border="dark" style={{ width: "18rem" }}>
+                  <Col xs={6} md={4}>
+                    <Card
+                      border="dark"
+                      style={{ width: "18rem" }}
+                      key={plan.id}
+                    >
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -117,8 +121,12 @@ const Home = () => {
             <Container>
               <Row>
                 {topTrendingPlans.map((plan) => (
-                  <Col key={plan.id}>
-                    <Card border="dark" style={{ width: "18rem" }}>
+                  <Col>
+                    <Card
+                      border="dark"
+                      style={{ width: "18rem" }}
+                      key={plan.id}
+                    >
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -152,6 +160,14 @@ const Home = () => {
                   </Col>
                 ))}
               </Row>
+            </Container>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="3">
+          <Accordion.Header>Make your own plan</Accordion.Header>
+          <Accordion.Body>
+            <Container>
+              <Row></Row>
             </Container>
           </Accordion.Body>
         </Accordion.Item>
