@@ -8,9 +8,13 @@ import OrderHistory from './components/OrderHistory'
 import './App.css'
 import Recharge from './components/Recharge'
 import Profile from './components/Profile'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback, LogError} from './ErrorHandler'
+
 
 function App() {
   return (
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}>
     <div className="App">
       <ToastContainer theme="colored" position="top-center"></ToastContainer>
       <BrowserRouter>
@@ -25,6 +29,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    </ErrorBoundary>
   )
 }
 

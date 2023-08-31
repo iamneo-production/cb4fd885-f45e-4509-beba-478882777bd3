@@ -16,6 +16,7 @@ import {
   validityIntervals,
   priceIntervals,
 } from '../constants/SliderConstants'
+import { useErrorBoundary } from 'react-error-boundary'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -34,6 +35,7 @@ const Home = () => {
 
   const handleClose = () => setShowModal(false)
   const handleShow = () => setShowModal(true)
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     loadPlans()
@@ -74,6 +76,8 @@ const Home = () => {
           setIsLoading(false)
           setRecommendedPlans(res?.recommended)
           setTopTrendingPlans(res?.topTrending)
+        }).catch((err) => {
+          showBoundary(err);
         })
     }, 1000)
   }

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useErrorBoundary } from 'react-error-boundary'
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([])
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     fetchOrderHistory()
@@ -17,6 +19,8 @@ const OrderHistory = () => {
       })
       .then((res) => {
         setOrders(res?.orders)
+      }).catch((err) => {
+        showBoundary(err);
       })
   }
 

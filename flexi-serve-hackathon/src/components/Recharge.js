@@ -1,8 +1,11 @@
 import React from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import { loadStripe } from '@stripe/stripe-js'
+import { useErrorBoundary } from 'react-error-boundary'
 
 const Recharge = () => {
+  const { showBoundary } = useErrorBoundary();
+
   let order = JSON.parse(sessionStorage.getItem('order'))
   const makePayment = async () => {
     const stripe = await loadStripe(
@@ -19,6 +22,9 @@ const Recharge = () => {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(body),
+    }).catch((err) => {
+      console.log('Stripe API not responding :' + err.message)
+      showBoundary(err);
     })
 
     const session = await response.json()
@@ -44,10 +50,12 @@ const Recharge = () => {
             })
             .catch((err) => {
               console.log('Order update failed :' + err.message)
+              showBoundary(err);
             })
         })
         .catch((err) => {
           console.log('Something went wrong :' + err.message)
+          showBoundary(err);
         })
     }
     const result = stripe.redirectToCheckout({
