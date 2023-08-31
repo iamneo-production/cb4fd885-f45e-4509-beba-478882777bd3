@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
@@ -30,7 +30,7 @@ const Home = () => {
       fetch("http://localhost:8080/plans")
         .then((res) => {
           if (!res.ok) {
-            return false;
+            return {};
           }
           return res.json();
         })
@@ -60,7 +60,6 @@ const Home = () => {
     setModalData(data);
   };
   const handleRecharge = (rechargeData) => {
-    // TODO: handle recharge
     handleClose();
     navigate("/recharge");
   };
@@ -74,12 +73,8 @@ const Home = () => {
             <Container>
               <Row>
                 {recommendedPlans.map((plan) => (
-                  <Col xs={6} md={4}>
-                    <Card
-                      border="dark"
-                      style={{ width: "18rem" }}
-                      key={plan.id}
-                    >
+                  <Col key={plan.id}>
+                    <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -122,12 +117,8 @@ const Home = () => {
             <Container>
               <Row>
                 {topTrendingPlans.map((plan) => (
-                  <Col>
-                    <Card
-                      border="dark"
-                      style={{ width: "18rem" }}
-                      key={plan.id}
-                    >
+                  <Col key={plan.id}>
+                    <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">

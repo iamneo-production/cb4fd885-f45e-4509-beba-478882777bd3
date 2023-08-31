@@ -46,17 +46,6 @@ app-check {
   width: 20px;
   margin: 1%;
 }
-.header {
-  width: 100%;
-  background-color: blue;
-  color: #fff;
-  padding: 1%;
-}
-a {
-  text-decoration: none !important;
-  color: white !important;
-  padding: 2px;
-}
 
 @keyframes App-logo-spin {
   from {

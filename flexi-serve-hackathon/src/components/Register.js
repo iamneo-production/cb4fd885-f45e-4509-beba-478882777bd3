@@ -36,13 +36,13 @@ const Register = () => {
 
     if (!isProceed) {
       toast.warning(errorMessage);
+    } else if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
+      isProceed = true;
     } else {
-      if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-      } else {
-        isProceed = false;
-        toast.warning("Please enter the valid email");
-      }
+      isProceed = false;
+      toast.warning("Please enter the valid email");
     }
+
     return isProceed;
   };
 

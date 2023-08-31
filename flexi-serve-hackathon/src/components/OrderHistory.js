@@ -1,126 +1,60 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const OrderHistory = () => {
-  const [custlist, setCustomerList] = useState([]);
-  const [haveedit, editchange] = useState(false);
-  const [haveview, viewchange] = useState(false);
-  const [haveadd, addchange] = useState(false);
-  const [haveremove, removechange] = useState(false);
-
-  const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    getUserAccess();
-    loadCustomer();
+    fetchOrderHistory();
   }, []);
 
-  const loadCustomer = () => {
-    fetch("http://localhost:8080/customer")
+  const fetchOrderHistory = () => {
+    fetch("http://localhost:8080/user/" + sessionStorage.getItem("username"))
       .then((res) => {
         if (!res.ok) {
-          return false;
+          return {};
         }
         return res.json();
       })
       .then((res) => {
-        setCustomerList(res);
+        setOrders(res?.orders);
       });
-  };
-
-  const getUserAccess = () => {
-    const userrole =
-      sessionStorage.getItem("userrole") != null
-        ? sessionStorage.getItem("userrole").toString()
-        : "";
-    fetch(
-      "http://localhost:8080/roleaccess?role=" + userrole + "&menu=customer"
-    )
-      .then((res) => {
-        if (!res.ok) {
-          navigate("/");
-          toast.warning("You are not authorized to access");
-          return false;
-        }
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.length > 0) {
-          viewchange(true);
-          let userobj = res[0];
-          editchange(userobj.haveedit);
-          addchange(userobj.haveadd);
-          removechange(userobj.havedelete);
-        } else {
-          navigate("/");
-          toast.warning("You are not authorized to access");
-        }
-      });
-  };
-
-  const handleadd = () => {
-    if (haveadd) {
-      toast.success("added");
-    } else {
-      toast.warning("You are not having access for add");
-    }
-  };
-  const handleEdit = () => {
-    if (haveedit) {
-      toast.success("edited");
-    } else {
-      toast.warning("You are not having access for Edit");
-    }
-  };
-
-  const handleRemove = () => {
-    if (haveremove) {
-      toast.success("removed");
-    } else {
-      toast.warning("You are not having access for remove");
-    }
   };
 
   return (
     <div className="container">
       <div className="card">
         <div className="card-header">
-          <h3>Customer Listing</h3>
+          <h3>Order History</h3>
         </div>
         <div className="card-body">
-          <button onClick={handleadd} className="btn btn-success">
-            Add (+)
-          </button>
-          <br></br>
           <table className="table table-bordered">
             <thead className="bg-dark text-white">
               <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Action</th>
+                <th>Order ID</th>
+                <th>Date of order</th>
+                <th>Plan</th>
+                <th>Rate</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
-              {custlist &&
-                custlist.map((item) => (
-                  <tr key={item.code}>
-                    <td>{item.code}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <tr>
+                    <td>{order.orderId}</td>
+                    <td>{order.date}</td>
+                    <td>{order.header}</td>
+                    <td>{order.price}</td>
                     <td>
-                      <button onClick={handleEdit} className="btn btn-primary">
-                        Edit
-                      </button>{" "}
-                      |
-                      <button onClick={handleRemove} className="btn btn-danger">
-                        Remove
-                      </button>
+                      {order.validity} validity with {order.data},{" "}
+                      {order.localMins} local mins, {order.texts} texts &{" "}
+                      {order.internationalMins} intl mins
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>No orders found</tr>
+              )}
             </tbody>
           </table>
         </div>

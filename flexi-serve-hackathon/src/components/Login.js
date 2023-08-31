@@ -22,15 +22,13 @@ const Login = () => {
         .then((resp) => {
           if (Object.keys(resp).length === 0) {
             toast.error("Please Enter valid username");
+          } else if (resp.password === password) {
+            toast.success("Success");
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("userrole", resp.role);
+            navigate("/");
           } else {
-            if (resp.password === password) {
-              toast.success("Success");
-              sessionStorage.setItem("username", username);
-              sessionStorage.setItem("userrole", resp.role);
-              navigate("/");
-            } else {
-              toast.error("Please Enter valid credentials");
-            }
+            toast.error("Please Enter valid credentials");
           }
         })
         .catch((err) => {
