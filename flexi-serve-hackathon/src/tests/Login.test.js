@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter as Router } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorFallback, LogError} from '../ErrorHandler'
@@ -58,7 +58,7 @@ describe("Login", () => {
         render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
 
         const registerLink = screen.getByRole('link', { name: 'New User' });
-// // console.log(closeLink);
+
         expect(registerLink).toBeInTheDocument();
         expect(registerLink.getAttribute('href')).toBe('/register');
     });

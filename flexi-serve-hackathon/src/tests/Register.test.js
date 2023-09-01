@@ -16,7 +16,6 @@ describe("Register", () => {
         const countryLabel = screen.getByText(/Country/i);
         const addressLabel = screen.getByText(/Address/i);
         const genderLabels = screen.getAllByText(/Male/i);
-        // const femaleLabel = screen.getByText(/Female/i);
 
         expect(usernameLabel).toBeInTheDocument();
         expect(passwordLabel).toBeInTheDocument();
@@ -36,7 +35,6 @@ describe("Register", () => {
         const countryInput = screen.getByLabelText(/Country/i);
         const addressInput = screen.getByLabelText(/Address/i);
         const genderInputs = screen.getAllByLabelText(/Male/i);
-        // const femaleInput = screen.getByLabelText(/Female/i);
 
         expect(usernameInput.getAttribute("id")).toBe("username");
         expect(passwordInput.getAttribute("id")).toBe("password");
@@ -60,7 +58,6 @@ describe("Register", () => {
         const countryInput = screen.getByLabelText(/Country/i);
         const addressInput = screen.getByLabelText(/Address/i);
         const genderInputs = screen.getAllByLabelText(/Male/i);
-        // const femaleInput = screen.getByLabelText(/Female/i);
 
         expect(usernameInput.value).toMatch("");
         expect(passwordInput.value).toMatch("");
@@ -106,7 +103,7 @@ describe("Register", () => {
         render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Register /></Router></ErrorBoundary>);
 
         const closeLink = screen.getByRole('link', { name: 'Close' });
-// // console.log(closeLink);
+
         expect(closeLink).toBeInTheDocument();
         expect(closeLink.getAttribute('href')).toBe('/login');
     });
