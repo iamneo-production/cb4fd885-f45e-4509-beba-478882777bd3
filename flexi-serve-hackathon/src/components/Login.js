@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useErrorBoundary } from 'react-error-boundary'
 
 export const validate = (username, password) => {
   let result = true;
@@ -18,6 +19,7 @@ export const validate = (username, password) => {
 const Login = () => {
   const [username, usernameupdate] = useState("");
   const [password, passwordupdate] = useState("");
+  const { showBoundary } = useErrorBoundary();
 
   const navigate = useNavigate();
 
@@ -46,6 +48,7 @@ const Login = () => {
         })
         .catch((err) => {
           toast.error("Login Failed due to :" + err.message);
+          showBoundary(err);
         });
     }
   };

@@ -1,10 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from "react-router-dom";
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback, LogError} from '../ErrorHandler'
 import Login, { validate } from "../components/Login";
 
 describe("Login", () => {
     test("Login form rendered properly", async () => {
-        render(<Router><Login /></Router>);
+        render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
 
         const usernameLabel = screen.getByText(/Username/i);
         const passwordLabel = screen.getByText(/Password/i);
@@ -32,7 +34,7 @@ describe("Login", () => {
     });
 
     test("Login form should accept input", async () => {
-        render(<Router><Login /></Router>);
+        render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
 
         const usernameInput = screen.getByLabelText(/Username/i);
         const passwordInput = screen.getByLabelText(/Password/i);

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import Card from './Card'
+import { useErrorBoundary } from 'react-error-boundary'
 
 const Profile = ({ userId = sessionStorage.getItem('username') }) => {
+  const { showBoundary } = useErrorBoundary();
   const [user, setUser] = useState(null)
 
   const fetchUserProfile = () => {
@@ -9,6 +11,8 @@ const Profile = ({ userId = sessionStorage.getItem('username') }) => {
       .then((response) => (response.ok ? response.json() : {}))
       .then((user) => {
         setUser(user)
+      }).catch((err) => {
+        showBoundary(err);
       })
   }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useErrorBoundary } from 'react-error-boundary'
 
 const Register = () => {
   const [id, setId] = useState('')
@@ -13,6 +14,7 @@ const Register = () => {
   const [gender, setGender] = useState('male')
 
   const navigate = useNavigate()
+  const { showBoundary } = useErrorBoundary();
 
   const isValidate = () => {
     let isProceed = true
@@ -71,6 +73,7 @@ const Register = () => {
         })
         .catch((err) => {
           toast.error('Registration failed :' + err.message)
+          showBoundary(err)
         })
     }
   }
