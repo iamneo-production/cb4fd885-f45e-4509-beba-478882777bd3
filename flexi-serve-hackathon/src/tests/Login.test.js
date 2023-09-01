@@ -1,0 +1,56 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter as Router } from "react-router-dom";
+import Login, { validate } from "../components/Login";
+
+describe("Login", () => {
+    test("Login form rendered properly", async () => {
+        render(<Router><Login /></Router>);
+
+        const usernameLabel = screen.getByText(/Username/i);
+        const passwordLabel = screen.getByText(/Password/i);
+
+        expect(usernameLabel).toBeInTheDocument();
+        expect(passwordLabel).toBeInTheDocument();
+
+        const usernameInput = screen.getByLabelText(/Username/i);
+        const passwordInput = screen.getByLabelText(/Password/i);
+
+        expect(usernameInput.getAttribute("id")).toBe("username");
+        expect(passwordInput.getAttribute("id")).toBe("password");
+
+        expect(usernameInput.getAttribute("type")).toBe("text");
+        expect(passwordInput.getAttribute("type")).toBe("password");
+    });
+
+    test("Validate function should fail on incorrect input", () => {
+        expect(validate("", "")).not.toBe(true);
+        expect(validate(null, null)).not.toBe(true);
+    });
+
+    test("Validate function should succeed on correct input", () => {
+        expect(validate("test", "test")).toBe(true);
+    });
+
+    test("Login form should accept input", async () => {
+        render(<Router><Login /></Router>);
+
+        const usernameInput = screen.getByLabelText(/Username/i);
+        const passwordInput = screen.getByLabelText(/Password/i);
+
+        expect(usernameInput.value).toMatch("");
+        expect(passwordInput.value).toMatch("");
+
+        fireEvent.change(usernameInput, { target: { value: "testuser" } });
+        expect(usernameInput.value).toMatch("testuser");
+
+        fireEvent.change(passwordInput, { target: { value: "password" } });
+        expect(passwordInput.value).toMatch("password");
+    });
+
+    // test("Login form should be able to submit", async () => {
+    //     const mockFn = jest.fn();
+    //     render(<Router><Login /></Router>);
+    //     fireEvent.submit(screen.getByTestId("form"));
+    //     expect(mockFn).toHaveBeenCalledTimes(1);
+    // });
+});
