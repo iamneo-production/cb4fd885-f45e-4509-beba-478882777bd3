@@ -35,7 +35,7 @@ const Home = () => {
 
   const handleClose = () => setShowModal(false)
   const handleShow = () => setShowModal(true)
-  const { showBoundary } = useErrorBoundary();
+  const { showBoundary } = useErrorBoundary()
 
   useEffect(() => {
     loadPlans()
@@ -76,8 +76,9 @@ const Home = () => {
           setIsLoading(false)
           setRecommendedPlans(res?.recommended)
           setTopTrendingPlans(res?.topTrending)
-        }).catch((err) => {
-          showBoundary(err);
+        })
+        .catch((err) => {
+          showBoundary(err)
         })
     }, 1000)
   }
@@ -140,8 +141,8 @@ const Home = () => {
             <Container>
               <Row>
                 {recommendedPlans.map((plan) => (
-                  <Col xs={6} md={4} key={plan.id}>
-                    <Card border="dark" style={{ width: '18rem' }}>
+                  <Col xs={6} md={4} key={plan.id} className="mb-2 mt-2">
+                    <Card border="dark" style={{ width: '100%' }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">
@@ -184,8 +185,8 @@ const Home = () => {
             <Container>
               <Row>
                 {topTrendingPlans.map((plan) => (
-                  <Col key={plan.id}>
-                    <Card border="dark" style={{ width: '18rem' }}>
+                  <Col xs={6} md={4} key={plan.id} className="mb-2 mt-2">
+                    <Card border="dark" style={{ width: '100%' }}>
                       <Card.Header>{plan.header}</Card.Header>
                       <Card.Body>
                         <Card.Title className="text-primary">

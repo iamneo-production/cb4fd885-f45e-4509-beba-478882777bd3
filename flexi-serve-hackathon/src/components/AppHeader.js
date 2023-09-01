@@ -25,7 +25,7 @@ const AppHeader = () => {
   return (
     <div>
       {showMenu && (
-        <Navbar bg="primary" data-bs-theme="dark">
+        <Navbar bg="primary" data-bs-theme="dark" className="mb-4">
           <Container>
             <Navbar.Brand href="/">Virtual DOMinators</Navbar.Brand>
             <Nav className="me-auto">

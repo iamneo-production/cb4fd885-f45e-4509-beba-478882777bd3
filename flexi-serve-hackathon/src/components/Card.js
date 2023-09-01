@@ -1,5 +1,4 @@
 import { mapObjIndexed, values } from 'ramda'
-import { Link } from 'react-router-dom'
 
 const CardHeader = ({ title }) => {
     return (
@@ -16,12 +15,28 @@ const CardHeader = ({ title }) => {
             (value, key) => (
               <div className="col-lg-6" key={key}>
                 <div className="form-group">
-                  <label>{key}</label>
-                  <input
-                    value={value}
-                    disabled={true}
-                    className="form-control"
-                  />
+                  <label>{key.toLocaleUpperCase()}</label>
+                  {key === 'orders' ? (
+                    <div
+                      style={{
+                        backgroundColor: '#0d6efd',
+                        borderRadius: '5px',
+                        padding: '5px',
+                      }}
+                    >
+                      <a href="/order-history">View Orders</a>
+                    </div>
+                  ) : (
+                    <input
+                      value={
+                        key === 'password'
+                          ? value.replace(/\S(?=\S{2})/g, '*')
+                          : value
+                      }
+                      disabled={true}
+                      className="form-control"
+                    />
+                  )}
                 </div>
               </div>
             ),
@@ -34,9 +49,11 @@ const CardHeader = ({ title }) => {
   Card = (props) => {
     const { title, items = {} } = props
     return (
-      <div className="card">
-        <CardHeader title={title} />
-        <CardBody items={items} />
+      <div className="container">
+        <div className="card">
+          <CardHeader title={title} />
+          <CardBody items={items} />
+        </div>
       </div>
     )
   }
