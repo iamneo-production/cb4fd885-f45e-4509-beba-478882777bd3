@@ -1,78 +1,81 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useErrorBoundary } from 'react-error-boundary'
 
+export const validate = (username, password) => {
+  let result = true;
+  if (username === "" || username === null) {
+    result = false;
+    toast.warning("Please Enter Username");
+  }
+  if (password === "" || password === null) {
+    result = false;
+    toast.warning("Please Enter Password");
+  }
+  return result;
+};
+
 const Login = () => {
-  const [username, usernameupdate] = useState('')
-  const [password, passwordupdate] = useState('')
+  const [username, usernameupdate] = useState("");
+  const [password, passwordupdate] = useState("");
   const { showBoundary } = useErrorBoundary();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    sessionStorage.clear()
-  }, [])
+    sessionStorage.clear();
+  }, []);
 
   const login = (e) => {
-    e.preventDefault()
-    if (validate()) {
-      fetch('http://localhost:8080/user/' + username)
+    e.preventDefault();
+    if (validate(username, password)) {
+      fetch("http://localhost:8080/user/" + username)
         .then((res) => {
-          return res.json()
+          return res.json();
         })
         .then((resp) => {
           if (Object.keys(resp).length === 0) {
-            toast.error('Please Enter valid username')
+            toast.error("Please Enter valid username");
           } else if (resp.password === password) {
-            toast.success('Success')
-            sessionStorage.setItem('username', username)
-            sessionStorage.setItem('userrole', resp.role)
-            navigate('/')
+            toast.success("Success");
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("userrole", resp.role);
+            navigate("/");
           } else {
-            toast.error('Please Enter valid credentials')
+            toast.error("Please Enter valid credentials");
           }
         })
         .catch((err) => {
-          toast.error('Login Failed due to :' + err.message)
+          toast.error("Login Failed due to :" + err.message);
           showBoundary(err);
-        })
+        });
     }
-  }
+  };
 
-  const validate = () => {
-    let result = true
-    if (username === '' || username === null) {
-      result = false
-      toast.warning('Please Enter Username')
-    }
-    if (password === '' || password === null) {
-      result = false
-      toast.warning('Please Enter Password')
-    }
-    return result
-  }
   return (
     <div className="row">
-      <div className="offset-lg-3 col-lg-6" style={{ marginTop: '100px' }}>
-        <form onSubmit={login} className="container">
+      <div className="offset-lg-3 col-lg-6" style={{ marginTop: "100px" }}>
+        <form onSubmit={login} className="container" data-testid="form">
           <div className="card">
             <div className="card-header">
               <h2>User Login</h2>
             </div>
             <div className="card-body">
               <div className="form-group">
-                <label>
-                  User Name <span className="errmsg">*</span>
+                <label htmlFor="username">
+                  Username <span className="errmsg">*</span>
                 </label>
                 <input
                   value={username}
                   onChange={(e) => usernameupdate(e.target.value)}
                   className="form-control"
+                  id="username"
+                  type="text"
                 ></input>
               </div>
               <div className="form-group">
-                <label>
+                <label htmlFor="password">
                   Password <span className="errmsg">*</span>
                 </label>
                 <input
@@ -80,6 +83,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => passwordupdate(e.target.value)}
                   className="form-control"
+                  id="password"
                 ></input>
               </div>
             </div>
@@ -87,7 +91,7 @@ const Login = () => {
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
-              <Link className="btn btn-link text-bg-light" to={'/register'}>
+              <Link className="btn btn-link text-bg-light" to={"/register"}>
                 New User
               </Link>
             </div>
@@ -95,7 +99,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
