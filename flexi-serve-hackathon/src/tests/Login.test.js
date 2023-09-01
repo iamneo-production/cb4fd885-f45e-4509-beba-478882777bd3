@@ -53,4 +53,13 @@ describe("Login", () => {
         render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
         fireEvent.click(screen.getByText('Login'));
     });
+
+    test('Login form redirect to Register form', async () => {
+        render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
+
+        const registerLink = screen.getByRole('link', { name: 'New User' });
+// // console.log(closeLink);
+        expect(registerLink).toBeInTheDocument();
+        expect(registerLink.getAttribute('href')).toBe('/register');
+    });
 });

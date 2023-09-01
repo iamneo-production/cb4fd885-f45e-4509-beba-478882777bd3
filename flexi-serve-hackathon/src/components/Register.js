@@ -89,19 +89,20 @@ const Register = () => {
               <div className="row">
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
-                      User Name <span className="errmsg">*</span>
+                    <label htmlFor='username'>
+                      Username <span className="errmsg">*</span>
                     </label>
                     <input
                       value={id}
                       onChange={(e) => setId(e.target.value)}
                       className="form-control"
+                      id='username'
                     ></input>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
+                    <label htmlFor='password'>
                       Password <span className="errmsg">*</span>
                     </label>
                     <input
@@ -109,54 +110,59 @@ const Register = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       className="form-control"
+                      id='password'
                     ></input>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
+                    <label htmlFor='fullname'>
                       Full Name <span className="errmsg">*</span>
                     </label>
                     <input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="form-control"
+                      id='fullname'
                     ></input>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
+                    <label htmlFor='email'>
                       Email <span className="errmsg">*</span>
                     </label>
                     <input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="form-control"
+                      id='email'
                     ></input>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
+                    <label htmlFor='phone'>
                       Phone <span className="errmsg"></span>
                     </label>
                     <input
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="form-control"
+                      id='phone'
                     ></input>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="form-group">
-                    <label>
+                    <label htmlFor='country'>
                       Country <span className="errmsg">*</span>
                     </label>
                     <select
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                       className="form-control"
+                      id='country'
                     >
                       <option value="india">India</option>
                       <option value="usa">USA</option>
@@ -166,11 +172,12 @@ const Register = () => {
                 </div>
                 <div className="col-lg-12">
                   <div className="form-group">
-                    <label>Address</label>
+                    <label htmlFor='address'>Address</label>
                     <textarea
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       className="form-control"
+                      id='address'
                     ></textarea>
                   </div>
                 </div>
@@ -185,8 +192,9 @@ const Register = () => {
                       name="gender"
                       value="male"
                       className="app-check"
+                      id='male'
                     ></input>
-                    <label>Male</label>{' '}
+                    <label htmlFor='male'>Male</label>{' '}
                     <input
                       type="radio"
                       checked={gender === 'female'}
@@ -194,8 +202,9 @@ const Register = () => {
                       name="gender"
                       value="female"
                       className="app-check"
+                      id='female'
                     ></input>
-                    <label>Female</label>
+                    <label htmlFor='female'>Female</label>
                   </div>
                 </div>
               </div>
