@@ -3,8 +3,8 @@ import Card from './Card'
 import { useErrorBoundary } from 'react-error-boundary'
 
 const Profile = ({ userId = sessionStorage.getItem('username') }) => {
-  const [user, setUser] = useState(false)
   const { showBoundary } = useErrorBoundary();
+  const [user, setUser] = useState(null)
 
   const fetchUserProfile = () => {
     fetch('http://localhost:8080/user/' + userId)
@@ -20,7 +20,7 @@ const Profile = ({ userId = sessionStorage.getItem('username') }) => {
     fetchUserProfile()
   }, [userId])
 
-  return user && <Card items={user} title="Profile" footer={false} />
+  return user ? <Card items={user} title="Profile" /> : <div>Loading...</div>
 }
 
 export default Profile
