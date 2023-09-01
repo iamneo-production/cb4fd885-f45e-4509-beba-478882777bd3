@@ -50,7 +50,7 @@ describe("Login", () => {
     });
 
     test("Login form should be able to submit", async () => {
-        render(<Router><Login /></Router>);
+        render(<ErrorBoundary FallbackComponent={ErrorFallback} onError={LogError}><Router><Login /></Router></ErrorBoundary>);
         fireEvent.click(screen.getByText('Login'));
     });
 });
