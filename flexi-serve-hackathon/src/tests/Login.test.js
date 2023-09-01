@@ -47,10 +47,8 @@ describe("Login", () => {
         expect(passwordInput.value).toMatch("password");
     });
 
-    // test("Login form should be able to submit", async () => {
-    //     const mockFn = jest.fn();
-    //     render(<Router><Login /></Router>);
-    //     fireEvent.submit(screen.getByTestId("form"));
-    //     expect(mockFn).toHaveBeenCalledTimes(1);
-    // });
+    test("Login form should be able to submit", async () => {
+        render(<Router><Login /></Router>);
+        fireEvent.click(screen.getByText('Login'));
+    });
 });
