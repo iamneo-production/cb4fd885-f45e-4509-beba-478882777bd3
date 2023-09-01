@@ -1,4 +1,4 @@
-import { render, waitFor, act } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import Profile from './Profile'
 
 const mockData = {
